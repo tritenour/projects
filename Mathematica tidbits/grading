@@ -1,0 +1,10 @@
+mykHeld = If[Head[key] == HoldForm, key, HoldForm[key]];
+{mykLog, myrLog} = {mykHeld, HoldForm[response]} /. {Equal[Log[xx__], yy_] -> Log[xx], Equal[yy_, Log[xx__]] -> Log[xx]};
+{mykExp, myrExp} = {mykHeld, HoldForm[response]} /. {Equal[Log[xx__], yy_] -> yy, Equal[yy_, Log[xx__]] -> yy};
+mykBase = ReleaseHold[mykLog /. Log -> List][[1]]; myrBase = ReleaseHold[myrLog /. Log -> List][[1]];
+checkBase = FullSimplify[ ReleaseHold[Rationalize[Hold[mykBase]]] - ReleaseHold[Rationalize[Hold[myrBase]]]] == 0;
+checkLog = ReleaseHold[FullSimplify[ ReleaseHold[Rationalize[Hold[mykLog]]] - ReleaseHold[Rationalize[Hold[myrLog]]]]] == 0;
+checkExp = ReleaseHold[FullSimplify[ ReleaseHold[Rationalize[Hold[mykExp]]] - ReleaseHold[Rationalize[Hold[myrExp]]]]] == 0;
+checkNumLogs = Cases[myrLog, Log, Infinity, Heads -> True] == {Log}; checkNoExp = Cases[myrLog, Exp, Infinity, Heads -> True] == {};
+checkNoLog = Cases[myrExp, Log, Infinity, Heads -> True] == {};
+checkBase && checkLog && checkExp && checkNumLogs && checkNoExp && checkNoLog
