@@ -1,0 +1,41 @@
+#subroutine
+sub mcShuffle{
+my %ops = my %f = ();
+my @order = my @blocks = my @blocksUnshuffled = my @blocksShuffled = my @order = my @freeze = my @unfreeze = ();
+%ops = %{pop(@_)} if (ref($_[-1]) eq 'HASH');
+my $orderRef = $ops{order} // [];
+@order = @$orderRef if (ref($orderRef) eq "ARRAY");
+@order = ($orderRef) if (ref($orderRef) ne "ARRAY");
+my @freeze = @{$ops{freeze}};
+my $freezeRef = $ops{freeze} // [];
+@freeze = @$freezeRef if (ref($freezeRef) eq "ARRAY");
+@freeze = ($freezeRef) if (ref($freezeRef) ne "ARRAY");
+%f = map {$_ => 1} @freeze;
+@unfreeze = grep {not $f{$_}} (0..((scalar @_)-1));
+my $total = sum @_;
+my $n = 1;
+foreach my $i (@_){
+push(@blocks, [$n..($n+$i-1)]);
+$n = $n + $i;
+}
+foreach my $blockRef (@blocks){
+my @block = @$blockRef;
+my @blockShuffled = pick(scalar @block, @block);
+push(@blocksShuffled,\@blockShuffled);
+};
+@blocksShuffled[@order] = @blocks[@order];
+my $numberUnfreeze = scalar @unfreeze;
+@blocks[@unfreeze] = pick($numberUnfreeze, @blocksShuffled[@unfreeze]);
+@blocks[@freeze] = @blocksShuffled[@freeze];
+my @out = (); @out = (1) x $total;
+my $m = 1;
+foreach my $blockRef (@blocks){
+my @block = @$blockRef;
+foreach my $i (@block){
+$out[$i-1] = $m;
+$m++;
+}
+}
+return @out;
+}
+#/subroutine
