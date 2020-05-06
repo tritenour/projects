@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+</head>
+
+<body>
+
+
+        QID list (Enter your answer as a comma- or line-break-seperated list of QIDs.)<br />
+        <textarea rows='15' cols='70' id='qidList' name='qidList' wrap='soft'></textarea><br />
+        <button id="open">Open All</button><br />
+        <button id="axisLabels">Italicize Axis Labels</button><br />
+        <button id="newStyle">Add new stylesheet</button><br />
+        <button id="figcaps">Add figcaps</button><br /><br /><br />
+        Field<br />
+        <select id="field">
+            <option value="answer">Answer</option>
+            <option value="comment">Comment</option>
+            <option value="question" selected>Question</option>
+            <option value="mode">Mode</option>
+            <option value="solution">Solution</option>
+        </select><br /><br />
+        Function<br />
+        <input type="radio" id="modeChoiceFindReplace"
+        name="mode" value="findReplace">
+        <label for="modeChoice1">Find and Replace</label><br />
+
+        <input type="radio" id="modeChoicePrepend"
+        name="mode" value="prepend">
+        <label for="modeChoice2">Prepend</label><br />
+
+        <input type="radio" id="modeChoiceAppend"
+        name="mode" value="append">
+        <label for="modeChoice3">Append</label><br />
+
+        <input type="radio" id="modeChoiceSet"
+        name="mode" value="set">
+        <label for="modeChoice4">Set</label><br /><br />
+
+        <div id="findReplace">
+            You may use regex.<br />
+            Find<br />
+            <input type="text" id="findText" name="find" size="100"/> <input type="checkbox" id="regex">Use Regular Expressions<br />
+            Replace<br />
+            <textarea rows='15' cols='70' id="replaceText" name="replace" wrap="soft"/></textarea><br />
+        </div>
+
+        <div id="prepend">
+            Prepend<br />
+            <textarea rows='15' cols='70' id="prependText" name="prepend" wrap='soft'></textarea><br />
+        </div>
+
+        <div id="append">
+            Append<br />
+            <textarea rows='15' cols='70' id="appendText" name="append" wrap='soft'></textarea><br />
+        </div>
+
+        <div id="set">
+            Set<br />
+            <textarea rows='15' cols='70' id="setText" name="set" wrap='soft'></textarea><br />
+        </div>
+<em><strong>The following buttons affect all open questions, not just those opened through this page.</strong></em><br />
+    <button id="apply">Apply to All</button><br /><br />
+    <button id="save">Save All</button>
+    <script src="batchEdit.js"></script>
+</body>
+
+</html>

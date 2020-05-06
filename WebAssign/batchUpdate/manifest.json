@@ -1,0 +1,19 @@
+{
+    "name": "batchEdit",
+    "description" : "Quickly edit batches of questions",
+    "manifest_version": 2,
+    "permissions": ["http://*/*", "https://*/*"],
+    "version": "0.1",
+
+    "browser_action": {
+        "default_popup": "popup.html"
+    },
+
+    "content_scripts": [
+        {
+          "matches": ["http://*.editorial.webassign.net/v4cgi/faculty.pl*", "https://*.editorial.webassign.net/v4cgi/faculty.pl*"],
+          "run_at" : "document_start",
+          "js": ["edit.js"]
+        }
+      ]
+}
